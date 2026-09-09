@@ -1,0 +1,2074 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#08080c">
+    <meta name="description" content="NEXCALC Tools - All-in-one calculators">
+
+    <title>NEXCALC — Tools</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Inter, Arial, Helvetica, sans-serif;
+        }
+
+        :root {
+            --bg: #07070a;
+            --card: #111116;
+            --card2: #181820;
+            --text: #ffffff;
+            --muted: #9898a7;
+            --border: rgba(255,255,255,0.08);
+            --accent: #7c5cff;
+            --accent-light: #b8a9ff;
+            --green: #35d49a;
+        }
+
+        body.light {
+            --bg: #f5f5f8;
+            --card: #ffffff;
+            --card2: #eeeeF4;
+            --text: #111116;
+            --muted: #70707d;
+            --border: rgba(0,0,0,0.08);
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(124,92,255,0.18),
+                    transparent 35%
+                ),
+                var(--bg);
+            color: var(--text);
+            transition: 0.3s;
+        }
+
+        /* HEADER */
+
+        header {
+            height: 72px;
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            border-bottom: 1px solid var(--border);
+
+            background: rgba(7,7,10,0.78);
+            backdrop-filter: blur(18px);
+        }
+
+        body.light header {
+            background: rgba(255,255,255,0.82);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c5cff,
+                    #b39cff
+                );
+
+            box-shadow:
+                0 8px 25px
+                rgba(124,92,255,0.35);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            width: 42px;
+            height: 42px;
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            background: var(--card);
+            color: var(--text);
+
+            cursor: pointer;
+            font-size: 18px;
+
+            transition: 0.2s;
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(124,92,255,0.5);
+        }
+
+
+        /* TOP ADS */
+        .top-ads{position:relative;max-width:1180px;margin:0 auto 32px;overflow:hidden;border-radius:20px;border:1px solid var(--border);background:var(--card);box-shadow:0 12px 35px rgba(0,0,0,.18)}
+        .ad-track{display:flex;transition:transform .45s ease}
+        .ad-slide{min-width:100%;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(135deg,rgba(124,92,255,.16),rgba(124,92,255,.04))}
+        .ad-copy small{display:block;color:var(--accent-light);font-size:10px;font-weight:800;letter-spacing:1.4px;margin-bottom:5px}
+        .ad-copy h3{font-size:20px;margin-bottom:4px}
+        .ad-copy p{color:var(--muted);font-size:12px}
+        .ad-cta{border:1px solid var(--border);background:var(--card2);color:var(--text);padding:10px 15px;border-radius:11px;font-weight:800;font-size:12px;white-space:nowrap;cursor:pointer}
+        .ad-dots{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);display:flex;gap:5px}
+        .ad-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28);transition:.2s}
+        .ad-dot.active{width:18px;border-radius:8px;background:var(--accent)}
+        body.light .ad-slide{background:linear-gradient(135deg,rgba(124,92,255,.10),rgba(124,92,255,.025))}
+        @media(max-width:600px){.ad-slide{padding:16px 18px}.ad-copy h3{font-size:16px}.ad-copy p{font-size:11px}.ad-cta{padding:9px 11px;font-size:11px}}
+
+        /* MAIN */
+
+        main {
+            width: min(1180px, 92%);
+            margin: auto;
+
+            padding:
+                45px 0 120px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 7px 14px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(124,92,255,0.1);
+
+            border:
+                1px solid
+                rgba(124,92,255,0.35);
+
+            color: var(--accent-light);
+
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size:
+                clamp(35px, 5vw, 55px);
+
+            letter-spacing: -2px;
+        }
+
+        .gradient {
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #a893ff
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin:
+                14px auto 0;
+
+            color: var(--muted);
+
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* SEARCH */
+
+        .search {
+            max-width: 650px;
+            margin: 0 auto 35px;
+
+            position: relative;
+        }
+
+        .search input {
+            width: 100%;
+            height: 54px;
+
+            padding:
+                0 20px 0 50px;
+
+            border-radius: 16px;
+
+            border:
+                1px solid var(--border);
+
+            outline: none;
+
+            background: var(--card);
+            color: var(--text);
+
+            font-size: 15px;
+
+            transition: 0.2s;
+        }
+
+        .search input:focus {
+            border-color:
+                rgba(124,92,255,0.6);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(124,92,255,0.08);
+        }
+
+        .search-icon {
+            position: absolute;
+
+            left: 18px;
+            top: 17px;
+
+            font-size: 19px;
+
+            opacity: 0.65;
+        }
+
+        /* CATEGORY */
+
+        .category {
+            margin-top: 38px;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 16px;
+        }
+
+        .category-header h2 {
+            font-size: 23px;
+        }
+
+        .category-header span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* TOOLS GRID */
+
+        .tools-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 14px;
+        }
+
+        .tool {
+            min-height: 150px;
+
+            padding: 19px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 19px;
+
+            background: var(--card);
+
+            cursor: pointer;
+
+            position: relative;
+
+            transition:
+                transform 0.2s,
+                border-color 0.2s,
+                box-shadow 0.2s;
+        }
+
+        .tool:hover {
+            transform:
+                translateY(-5px);
+
+            border-color:
+                rgba(124,92,255,0.4);
+
+            box-shadow:
+                0 15px 35px
+                rgba(0,0,0,0.18);
+        }
+
+        .tool-icon {
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background:
+                rgba(124,92,255,0.11);
+
+            font-size: 21px;
+
+            margin-bottom: 15px;
+        }
+
+        .tool h3 {
+            font-size: 15px;
+        }
+
+        .tool p {
+            margin-top: 6px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .status {
+            position: absolute;
+
+            top: 15px;
+            right: 15px;
+
+            padding: 4px 8px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(53,212,154,0.1);
+
+            color: var(--green);
+
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .coming {
+            background:
+                rgba(255,255,255,0.06);
+
+            color: var(--muted);
+        }
+
+        /* SIGNATURE */
+
+        .signature {
+            margin-top: 45px;
+
+            padding: 30px;
+
+            border:
+                1px solid
+                rgba(124,92,255,0.25);
+
+            border-radius: 24px;
+
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(124,92,255,0.14),
+                    transparent 45%
+                ),
+                var(--card);
+        }
+
+        .signature-badge {
+            display: inline-block;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(124,92,255,0.12);
+
+            color: var(--accent-light);
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .signature h2 {
+            margin-top: 15px;
+
+            font-size:
+                clamp(27px, 4vw, 40px);
+
+            letter-spacing: -1px;
+        }
+
+        .signature p {
+            max-width: 700px;
+
+            margin-top: 10px;
+
+            color: var(--muted);
+
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .whatif-example {
+            margin-top: 22px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+        }
+
+        .example-box {
+            padding: 17px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 15px;
+
+            background: var(--card2);
+        }
+
+        .example-box small {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .example-box strong {
+            display: block;
+
+            margin-top: 7px;
+
+            font-size: 16px;
+        }
+
+        .signature-button {
+            margin-top: 20px;
+
+            padding:
+                13px 20px;
+
+            border: none;
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c5cff,
+                    #6241e8
+                );
+
+            color: white;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+
+            padding:
+                25px 20px 100px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        /* BOTTOM NAV */
+
+        .bottom-nav {
+            position: fixed;
+
+            bottom: 15px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            width: min(500px, 92%);
+
+            height: 65px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            background:
+                rgba(17,17,22,0.9);
+
+            backdrop-filter: blur(20px);
+
+            z-index: 200;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.3);
+        }
+
+        body.light .bottom-nav {
+            background:
+                rgba(255,255,255,0.9);
+        }
+
+        .nav-item {
+            border: none;
+
+            background: transparent;
+
+            color: var(--muted);
+
+            cursor: pointer;
+
+            font-size: 11px;
+        }
+
+        .nav-icon {
+            display: block;
+
+            font-size: 19px;
+
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: var(--accent-light);
+        }
+
+        /* TOAST */
+
+        .toast {
+            position: fixed;
+
+            left: 50%;
+            bottom: 95px;
+
+            transform:
+                translate(-50%, 20px);
+
+            padding:
+                12px 18px;
+
+            background: #202028;
+
+            color: white;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            font-size: 13px;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: 0.25s;
+
+            z-index: 500;
+        }
+
+        .toast.show {
+            opacity: 1;
+
+            transform:
+                translate(-50%, 0);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 950px) {
+
+            .tools-grid {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .tools-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .whatif-example {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            main {
+                width: 94%;
+                padding-top: 30px;
+            }
+
+            .tool {
+                min-height: 140px;
+                padding: 16px;
+            }
+
+            .signature {
+                padding: 21px;
+            }
+
+        }
+    
+        /* TOOL-SPECIFIC AD MODAL */
+        .live-tool-box{max-height:88vh;overflow:auto}.live-tool-box .tool-ad-card{padding-bottom:22px}.live-form{display:grid;gap:12px;text-align:left}.live-form label{font-size:13px;font-weight:700;opacity:.85}.live-form input,.live-form select{width:100%;box-sizing:border-box;padding:12px 13px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:#0f172a;color:inherit;outline:none}.light .live-form input,.light .live-form select{background:#fff;border-color:#d9dee7}.live-calc-btn{border:0;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff}.quick-result{margin-top:14px;padding:14px;border-radius:14px;background:rgba(124,58,237,.12);font-weight:800;line-height:1.55}.live-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:520px){.live-grid{grid-template-columns:1fr}}
+.tool-ad-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:flex-start;justify-content:center;padding:70px 18px 30px;z-index:9999;backdrop-filter:blur(6px)}
+        .tool-ad-modal.show{display:flex}
+        .tool-ad-box{width:min(620px,100%);background:linear-gradient(145deg,#111827,#0b1220);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:18px;box-shadow:0 25px 80px rgba(0,0,0,.45);position:relative;overflow:hidden}
+        .tool-ad-label{font-size:11px;letter-spacing:1.5px;opacity:.6;text-align:center;margin-bottom:10px}
+        .tool-ad-card{border-radius:18px;padding:28px 22px;text-align:center;background:linear-gradient(135deg,#18243a,#111827)}
+        .tool-ad-icon{font-size:42px;margin-bottom:8px}.tool-ad-card h2{margin:6px 0 8px;font-size:25px}.tool-ad-card p{margin:0 auto 18px;max-width:480px;opacity:.78;line-height:1.5}.tool-ad-cta{display:inline-block;padding:11px 20px;border-radius:12px;background:#fff;color:#111;font-weight:700;cursor:pointer;border:0}.tool-ad-close{position:absolute;right:14px;top:12px;width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:20px;cursor:pointer}
+        body.light .tool-ad-box{background:#fff;color:#111827}.light .tool-ad-card{background:#f3f5f8}.light .tool-ad-close{color:#111827;background:#e9edf3}
+
+    
+        /* HOME-STYLE QUICK CALCULATOR MODAL */
+        .quick-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;z-index:1000}
+        .quick-modal.show{display:flex}
+        .quick-box{width:min(520px,100%);max-height:90vh;overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:25px;box-shadow:0 25px 80px rgba(0,0,0,.45)}
+        .quick-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}
+        .quick-head h2{font-size:24px}
+        .quick-close{border:1px solid var(--border);background:var(--button);color:var(--text);width:38px;height:38px;border-radius:12px;cursor:pointer;font-size:20px}
+        .quick-form{display:grid;gap:14px}
+        .quick-form label{color:var(--muted);font-size:13px;font-weight:600}
+        .quick-form input,.quick-form select{width:100%;margin-top:7px;height:48px;border:1px solid var(--border);border-radius:12px;outline:none;padding:0 14px;background:var(--card2);color:var(--text);font-size:15px;box-sizing:border-box;color-scheme:dark}.quick-form select{appearance:auto}.quick-form select option{background:var(--card2);color:var(--text)}.light .quick-form input,.light .quick-form select{background:#fff;color:#111116;color-scheme:light}.light .quick-form select option{background:#fff;color:#111116}
+        .quick-form input:focus,.quick-form select:focus{border-color:rgba(124,92,255,.7)}
+        .quick-calc-btn{height:50px;border:0;border-radius:13px;background:linear-gradient(135deg,#7c5cff,#9d88ff);color:white;font-weight:800;cursor:pointer;font-size:15px;margin-top:5px}
+        .quick-result{margin-top:18px;padding:18px;border:1px solid var(--border);border-radius:15px;background:var(--card2);display:none;line-height:1.7}
+        .quick-result.show{display:block}
+        .quick-result strong{font-size:22px}
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                🧮
+            </div>
+
+            <span>NEXCALC</span>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <button
+                class="icon-btn"
+                onclick="toggleTheme()"
+                id="themeButton">
+
+                ☀️
+
+            </button>
+
+
+            <button
+                class="icon-btn"
+                onclick="goHome()">
+
+                🏠
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main>
+
+
+        <!-- TOP ADS -->
+        <section class="top-ads" aria-label="NEXCALC promotions">
+            <div class="ad-track" id="adTrack">
+                <div class="ad-slide">
+                    <div class="ad-copy"><small>NEXCALC PREMIUM</small><h3>Calculate without limits.</h3><p>More power, smarter tools and a cleaner experience.</p></div>
+                    <button class="ad-cta" onclick="window.location.href='premium.html'">Explore</button>
+                </div>
+                <div class="ad-slide">
+                    <div class="ad-copy"><small>QUICK CALCULATORS</small><h3>Everything in one place.</h3><p>EMI, GST, age, discount, finance and more.</p></div>
+                    <button class="ad-cta" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">View Tools</button>
+                </div>
+                <div class="ad-slide">
+                    <div class="ad-copy"><small>SMART & SIMPLE</small><h3>Your calculations, your history.</h3><p>Fast calculations with your recent results saved locally.</p></div>
+                    <button class="ad-cta" onclick="goHistory()">History</button>
+                </div>
+                <div class="ad-slide">
+                    <div class="ad-copy"><small>NEXCALC</small><h3>More useful tools are coming.</h3><p>New calculators and smarter features are on the way.</p></div>
+                    <button class="ad-cta" onclick="showToast('More tools are coming soon.')">Coming Soon</button>
+                </div>
+            </div>
+            <div class="ad-dots" id="adDots">
+                <span class="ad-dot active"></span><span class="ad-dot"></span><span class="ad-dot"></span><span class="ad-dot"></span>
+            </div>
+        </section>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="badge">
+                🛠️ CALCULATOR TOOLS
+            </div>
+
+
+            <h1>
+                Everything You
+                <span class="gradient">
+                    Need to Calculate.
+                </span>
+            </h1>
+
+
+            <p>
+                From everyday calculations to finance,
+                shopping, time, science and future planning —
+                NEXCALC is being built as one calculation platform.
+            </p>
+
+        </section>
+
+
+        <!-- SEARCH -->
+
+        <div class="search">
+
+            <span class="search-icon">
+                🔍
+            </span>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search tools — EMI, GST, age, discount..."
+                oninput="searchTools()">
+
+        </div>
+
+
+        <!-- BASIC & MATH -->
+
+        <section class="category">
+
+            <div class="category-header">
+
+                <h2>🧮 Math & Calculation</h2>
+
+                <span>Core tools</span>
+
+            </div>
+
+
+            <div class="tools-grid">
+
+
+                <div
+                    class="tool"
+                    data-name="scientific calculator math" onclick="openTool('Scientific Calculator')">
+
+                    <div class="tool-icon">
+                        🔬
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Scientific Calculator
+                    </h3>
+
+                    <p>
+                        Trigonometry, logarithms,
+                        powers and advanced maths.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="fraction calculator" onclick="openTool('Fraction Calculator')">
+
+                    <div class="tool-icon">
+                        ½
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Fraction Calculator
+                    </h3>
+
+                    <p>
+                        Add, subtract, multiply
+                        and divide fractions.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="percentage calculator" onclick="openTool('Percentage')">
+
+                    <div class="tool-icon">
+                        %
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Percentage
+                    </h3>
+
+                    <p>
+                        Percentage increase,
+                        decrease and difference.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="ratio proportion calculator" onclick="openTool('Ratio & Proportion')">
+
+                    <div class="tool-icon">
+                        ⚖️
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Ratio & Proportion
+                    </h3>
+
+                    <p>
+                        Solve ratios and
+                        proportional values.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FINANCE -->
+
+        <section class="category">
+
+            <div class="category-header">
+
+                <h2>💰 Finance</h2>
+
+                <span>Money tools</span>
+
+            </div>
+
+
+            <div class="tools-grid">
+
+
+                <div
+                    class="tool"
+                    data-name="emi loan calculator" onclick="openTool('EMI Calculator')">
+
+                    <div class="tool-icon">
+                        💳
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        EMI Calculator
+                    </h3>
+
+                    <p>
+                        Monthly EMI, total interest
+                        and total payment.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="gst tax calculator" onclick="openTool('GST Calculator')">
+
+                    <div class="tool-icon">
+                        🧾
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        GST Calculator
+                    </h3>
+
+                    <p>
+                        Add or remove GST from
+                        any amount.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="sip investment calculator" onclick="openTool('SIP Calculator')">
+
+                    <div class="tool-icon">
+                        📈
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        SIP Calculator
+                    </h3>
+
+                    <p>
+                        Estimate investment growth
+                        and future value.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="compound interest calculator" onclick="showPremiumRequired('Compound Interest')">
+
+                    <div class="tool-icon">
+                        💹
+                    </div>
+
+                    <span class="status" style="background:rgba(124,92,255,.16);color:var(--accent-light);border-color:rgba(124,92,255,.35)">
+                        PREMIUM
+                    </span>
+
+                    <h3>
+                        Compound Interest
+                    </h3>
+
+                    <p>
+                        Calculate compound growth
+                        over time.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="simple interest calculator" onclick="openTool('Simple Interest')">
+
+                    <div class="tool-icon">
+                        💵
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Simple Interest
+                    </h3>
+
+                    <p>
+                        Quick interest calculation.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="loan repayment calculator" onclick="openTool('Loan Calculator')">
+
+                    <div class="tool-icon">
+                        🏦
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Loan Calculator
+                    </h3>
+
+                    <p>
+                        Understand your complete
+                        loan repayment.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SHOPPING -->
+
+        <section class="category">
+
+            <div class="category-header">
+
+                <h2>🛍️ Shopping</h2>
+
+                <span>Everyday tools</span>
+
+            </div>
+
+
+            <div class="tools-grid">
+
+
+                <div
+                    class="tool"
+                    data-name="discount calculator shopping" onclick="openTool('Discount Calculator')">
+
+                    <div class="tool-icon">
+                        🏷️
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Discount Calculator
+                    </h3>
+
+                    <p>
+                        Find final price and
+                        amount saved.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="sale price calculator" onclick="openTool('Sale Price')">
+
+                    <div class="tool-icon">
+                        🛒
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Sale Price
+                    </h3>
+
+                    <p>
+                        Compare original and
+                        sale prices.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="tip calculator" onclick="openTool('Tip Calculator')">
+
+                    <div class="tool-icon">
+                        🍽️
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Tip Calculator
+                    </h3>
+
+                    <p>
+                        Calculate tips and
+                        split bills.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="unit price calculator" onclick="openTool('Unit Price')">
+
+                    <div class="tool-icon">
+                        🧮
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Unit Price
+                    </h3>
+
+                    <p>
+                        Find the better deal
+                        between products.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DATE & TIME -->
+
+        <section class="category">
+
+            <div class="category-header">
+
+                <h2>📅 Date & Time</h2>
+
+                <span>Time tools</span>
+
+            </div>
+
+
+            <div class="tools-grid">
+
+
+                <div
+                    class="tool"
+                    data-name="age calculator birthday" onclick="openTool('Age Calculator')">
+
+                    <div class="tool-icon">
+                        🎂
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Age Calculator
+                    </h3>
+
+                    <p>
+                        Calculate exact age in
+                        years, months and days.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="date difference calculator" onclick="openTool('Date Difference')">
+
+                    <div class="tool-icon">
+                        📆
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Date Difference
+                    </h3>
+
+                    <p>
+                        Find the exact difference
+                        between dates.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="time calculator hours" onclick="openTool('Time Calculator')">
+
+                    <div class="tool-icon">
+                        ⏱️
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Time Calculator
+                    </h3>
+
+                    <p>
+                        Add and subtract hours
+                        and minutes.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="days calculator" onclick="openTool('Days Calculator')">
+
+                    <div class="tool-icon">
+                        🗓️
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Days Calculator
+                    </h3>
+
+                    <p>
+                        Count days between
+                        two dates.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONVERSION -->
+
+        <section class="category">
+
+            <div class="category-header">
+
+                <h2>🔄 Conversion</h2>
+
+                <span>Convert anything</span>
+
+            </div>
+
+
+            <div class="tools-grid">
+
+
+                <div
+                    class="tool"
+                    data-name="unit converter length weight" onclick="openTool('Unit Converter')">
+
+                    <div class="tool-icon">
+                        📏
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Unit Converter
+                    </h3>
+
+                    <p>
+                        Length, weight, area,
+                        volume and more.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="currency converter exchange" onclick="openTool('Currency Converter')">
+
+                    <div class="tool-icon">
+                        💱
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Currency Converter
+                    </h3>
+
+                    <p>
+                        Convert currencies
+                        around the world.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="temperature converter" onclick="openTool('Temperature')">
+
+                    <div class="tool-icon">
+                        🌡️
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Temperature
+                    </h3>
+
+                    <p>
+                        Celsius, Fahrenheit
+                        and Kelvin.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="data storage converter" onclick="openTool('Data Converter')">
+
+                    <div class="tool-icon">
+                        💾
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Data Converter
+                    </h3>
+
+                    <p>
+                        KB, MB, GB, TB
+                        and more.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PREMIUM TOOLS -->
+        <section class="category">
+            <div class="category-header">
+                <h2>👑 Premium Tools</h2>
+                <span>Exclusive for Premium users</span>
+            </div>
+            <div class="tools-grid">
+                <div class="tool" data-name="premium tools exclusive" onclick="window.location.href='premium-tools.html'">
+                    <div class="tool-icon">👑</div>
+                    <span class="status" style="background:rgba(124,92,255,.16);color:var(--accent-light);border-color:rgba(124,92,255,.35)">PREMIUM</span>
+                    <h3>Premium Tools</h3>
+                    <p>Unlock 10 advanced calculators with NEXCALC Premium.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- REAL LIFE -->
+
+        <section class="category">
+
+            <div class="category-header">
+
+                <h2>🌎 Real Life</h2>
+
+                <span>Smart planning</span>
+
+            </div>
+
+
+            <div class="tools-grid">
+
+
+                <div
+                    class="tool"
+                    data-name="salary ctc calculator" onclick="showPremiumRequired('Salary Calculator')">
+
+                    <div class="tool-icon">
+                        💼
+                    </div>
+
+                    <span class="status" style="background:rgba(124,92,255,.16);color:var(--accent-light);border-color:rgba(124,92,255,.35)">
+                        PREMIUM
+                    </span>
+
+                    <h3>
+                        Salary Calculator
+                    </h3>
+
+                    <p>
+                        CTC, monthly salary,
+                        deductions and savings.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="trip travel cost calculator" onclick="openTool('Trip Cost')">
+
+                    <div class="tool-icon">
+                        ✈️
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Trip Cost
+                    </h3>
+
+                    <p>
+                        Estimate complete
+                        travel expenses.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="fuel mileage calculator" onclick="openTool('Fuel Calculator')">
+
+                    <div class="tool-icon">
+                        ⛽
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        Fuel Calculator
+                    </h3>
+
+                    <p>
+                        Fuel cost, mileage
+                        and trip distance.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tool"
+                    data-name="bmi health calculator" onclick="openTool('BMI Calculator')">
+
+                    <div class="tool-icon">
+                        ⚖️
+                    </div>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
+                    <h3>
+                        BMI Calculator
+                    </h3>
+
+                    <p>
+                        Calculate body mass
+                        index.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SIGNATURE FEATURE -->
+
+        <section class="signature">
+
+            <div class="signature-badge">
+                ✨ NEXCALC SIGNATURE FEATURE
+            </div>
+
+
+            <h2>
+                Universal What-If
+            </h2>
+
+
+            <p>
+                Don't just calculate one answer.
+                Change a value and understand how
+                everything else changes automatically.
+            </p>
+
+
+            <div class="whatif-example">
+
+                <div class="example-box">
+
+                    <small>
+                        BEFORE
+                    </small>
+
+                    <strong>
+                        Down Payment ₹3L
+                    </strong>
+
+                </div>
+
+
+                <div class="example-box">
+
+                    <small>
+                        CHANGE
+                    </small>
+
+                    <strong>
+                        Down Payment ₹5L
+                    </strong>
+
+                </div>
+
+
+                <div class="example-box">
+
+                    <small>
+                        AFTER
+                    </small>
+
+                    <strong>
+                        EMI ↓ Interest ↓
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="signature-button"
+                onclick="showToast('Universal What-If Engine is coming soon.')">
+
+                Explore What-If →
+
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <strong>NEXCALC</strong>
+
+        <br><br>
+
+        Calculate. Change. See what happens.
+
+        <br><br>
+
+        © 2026 NEXCALC
+
+    </footer>
+
+
+    <!-- BOTTOM NAV -->
+
+    <nav class="bottom-nav">
+
+        <button
+            class="nav-item"
+            onclick="goHome()">
+
+            <span class="nav-icon">
+                🧮
+            </span>
+
+            Calculator
+
+        </button>
+
+
+        <button
+            class="nav-item active">
+
+            <span class="nav-icon">
+                🛠️
+            </span>
+
+            Tools
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="goHistory()">
+
+            <span class="nav-icon">
+                📜
+            </span>
+
+            History
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="window.location.href='premium.html'">
+
+            <span class="nav-icon">
+                👑
+            </span>
+
+            Premium
+
+        </button>
+
+    </nav>
+
+
+
+    <!-- QUICK CALCULATOR MODAL -->
+    <div class="quick-modal" id="quickModal" onclick="closeQuickCalculator(event)">
+        <div class="quick-box" onclick="event.stopPropagation()">
+            <div class="quick-head">
+                <h2 id="quickTitle">Calculator</h2>
+                <button class="quick-close" onclick="closeQuickCalculator()">×</button>
+            </div>
+            <div id="quickForm" class="quick-form"></div>
+            <div id="quickResult" class="quick-result"></div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+
+    <div
+        class="toast"
+        id="toast">
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+
+        /* ==========================
+           TOP ADS
+        ========================== */
+        let adIndex = 0;
+        function moveAd(index){
+            adIndex = index;
+            document.getElementById('adTrack').style.transform = `translateX(-${adIndex * 100}%)`;
+            document.querySelectorAll('.ad-dot').forEach((dot,i)=>dot.classList.toggle('active',i===adIndex));
+        }
+        setInterval(function(){ moveAd((adIndex + 1) % 4); },3500);
+
+        /* ==========================
+           HOME
+        ========================== */
+
+        function goHome() {
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        function goHistory() {
+
+            window.location.href =
+                "history.html";
+
+        }
+
+
+        /* ==========================
+           SEARCH
+        ========================== */
+
+        function searchTools() {
+
+            const input =
+                document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+
+            const tools =
+                document.querySelectorAll(".tool");
+
+
+            tools.forEach(function(tool) {
+
+                const name =
+                    tool.dataset.name
+                    .toLowerCase();
+
+
+                if (
+                    name.includes(input) ||
+                    input === ""
+                ) {
+
+                    tool.style.display =
+                        "block";
+
+                } else {
+
+                    tool.style.display =
+                        "none";
+
+                }
+
+            });
+
+        }
+
+
+
+        /* ==========================
+           HOME-STYLE LIVE CALCULATORS
+        ========================== */
+        const premiumOnlyTools = new Set([
+            "Compound Interest",
+            "Salary Calculator"
+        ]);
+
+        function showPremiumRequired(name) {
+            const modal = document.getElementById("quickModal");
+            const title = document.getElementById("quickTitle");
+            const form = document.getElementById("quickForm");
+            const result = document.getElementById("quickResult");
+            title.textContent = "Premium Required";
+            form.innerHTML = `
+                <div style="text-align:center;padding:10px 4px 4px">
+                    <div style="font-size:42px;margin-bottom:8px">👑</div>
+                    <h3 style="margin-bottom:8px">${name} is a Premium tool</h3>
+                    <p style="color:var(--muted);line-height:1.6;margin-bottom:18px">This calculator is available only to NEXCALC Premium users.</p>
+                    <button class="quick-calc-btn" onclick="window.location.href='premium.html'">Unlock Premium</button>
+                </div>`;
+            result.className="quick-result";
+            result.innerHTML="";
+            modal.classList.add("show");
+        }
+
+        function openTool(name) {
+            if (premiumOnlyTools.has(name)) {
+                showPremiumRequired(name);
+                return;
+            }
+            const modal=document.getElementById("quickModal");
+            const title=document.getElementById("quickTitle");
+            const form=document.getElementById("quickForm");
+            const result=document.getElementById("quickResult");
+            title.textContent=name;
+            result.className="quick-result";
+            result.innerHTML="";
+            const input=(id,label,type="number",placeholder="")=>`<label>${label}<input id="${id}" type="${type}" placeholder="${placeholder}"></label>`;
+            const select=(id,label,opts)=>`<label>${label}<select id="${id}">${opts.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join("")}</select></label>`;
+            let html="";
+            if(name==="Scientific Calculator"){
+                html=input("sciExpr","Expression","text","e.g. 25+5*2 or sqrt(144)")+select("sciFunc","Function",[["none","None"],["sqrt","√ Square Root"],["sin","sin"],["cos","cos"],["tan","tan"],["log","log10"],["ln","ln"]])+`<button class="quick-calc-btn" onclick="calculateScientific()">Calculate</button>`;
+            }else if(name==="Fraction Calculator"){
+                html=input("fa","Numerator 1","number","1")+input("fb","Denominator 1","number","2")+select("fop","Operation",[["+","Add (+)"],["-","Subtract (-)"],["*","Multiply (×)"],["/","Divide (÷)"]])+input("fc","Numerator 2","number","1")+input("fd","Denominator 2","number","4")+`<button class="quick-calc-btn" onclick="calculateFraction()">Calculate</button>`;
+            }else if(name==="Percentage"){
+                html=input("pctValue","Value","number","25")+input("pctTotal","Total","number","100")+input("pctOld","Old Value (optional)","number","100")+input("pctNew","New Value (optional)","number","125")+`<button class="quick-calc-btn" onclick="calculatePercentage()">Calculate Percentage</button>`;
+            }else if(name==="Ratio & Proportion"){
+                html=input("ratioA","A","number","2")+input("ratioB","B","number","3")+input("ratioC","C","number","10")+`<button class="quick-calc-btn" onclick="calculateRatio()">Calculate Proportion</button>`;
+            }else if(name==="EMI Calculator"||name==="Loan Calculator"){
+                html=input("loanAmount","Loan Amount (₹)","number","500000")+input("interestRate","Annual Interest Rate (%)","number","8.5")+input("loanYears","Loan Tenure (Years)","number","5")+`<button class="quick-calc-btn" onclick="calculateEMI()">Calculate EMI</button>`;
+            }else if(name==="GST Calculator"){
+                html=input("gstAmount","Amount (₹)","number","1000")+input("gstRate","GST Rate (%)","number","18")+select("gstMode","Calculation",[["add","Add GST"],["remove","Remove GST"]])+`<button class="quick-calc-btn" onclick="calculateGST()">Calculate GST</button>`;
+            }else if(name==="SIP Calculator"){
+                html=input("sipMonthly","Monthly Investment (₹)","number","5000")+input("sipRate","Expected Annual Return (%)","number","12")+input("sipYears","Investment Period (Years)","number","10")+`<button class="quick-calc-btn" onclick="calculateSIP()">Calculate SIP</button>`;
+            }else if(name==="Compound Interest"){
+                html=input("ciPrincipal","Principal (₹)","number","100000")+input("ciRate","Annual Rate (%)","number","10")+input("ciYears","Time (Years)","number","5")+select("ciFreq","Compounding",[["1","Yearly"],["2","Half-yearly"],["4","Quarterly"],["12","Monthly"]])+`<button class="quick-calc-btn" onclick="calculateCI()">Calculate Interest</button>`;
+            }else if(name==="Simple Interest"){
+                html=input("siPrincipal","Principal (₹)","number","100000")+input("siRate","Rate (%)","number","10")+input("siYears","Time (Years)","number","5")+`<button class="quick-calc-btn" onclick="calculateSI()">Calculate Interest</button>`;
+            }else if(name==="Discount Calculator"||name==="Sale Price"){
+                html=input("discountPrice","Original Price (₹)","number","2000")+input("discountRate","Discount (%)","number","20")+`<button class="quick-calc-btn" onclick="calculateDiscount()">Calculate Discount</button>`;
+            }else if(name==="Tip Calculator"){
+                html=input("tipBill","Bill Amount (₹)","number","1000")+input("tipRate","Tip (%)","number","10")+input("tipPeople","Number of People","number","2")+`<button class="quick-calc-btn" onclick="calculateTip()">Calculate Tip</button>`;
+            }else if(name==="Unit Price"){
+                html=input("upPrice1","Product 1 Price (₹)","number","100")+input("upQty1","Product 1 Quantity","number","5")+input("upPrice2","Product 2 Price (₹)","number","150")+input("upQty2","Product 2 Quantity","number","10")+`<button class="quick-calc-btn" onclick="calculateUnitPrice()">Compare Prices</button>`;
+            }else if(name==="Age Calculator"){
+                html='<label>Date of Birth<input id="birthDate" type="date"></label>'+`<button class="quick-calc-btn" onclick="calculateAge()">Calculate Age</button>`;
+            }else if(name==="Date Difference"||name==="Days Calculator"){
+                html='<label>Start Date<input id="date1" type="date"></label><label>End Date<input id="date2" type="date"></label>'+`<button class="quick-calc-btn" onclick="calculateDateDifference()">Calculate Difference</button>`;
+            }else if(name==="Time Calculator"){
+                html=input("hours1","First Hours","number","2")+input("minutes1","First Minutes","number","30")+input("hours2","Second Hours","number","1")+input("minutes2","Second Minutes","number","45")+`<button class="quick-calc-btn" onclick="calculateTime()">Add Time</button>`;
+            }else if(name==="Unit Converter"){
+                html=input("unitAmount","Value","number","1")+select("unitType","Conversion",[["kmmi","Kilometres → Miles"],["mikl","Miles → Kilometres"],["kgpound","Kilograms → Pounds"],["poundkg","Pounds → Kilograms"],["cmft","Centimetres → Feet"],["ftcm","Feet → Centimetres"]])+`<button class="quick-calc-btn" onclick="calculateUnit()">Convert</button>`;
+            }else if(name==="Currency Converter"){
+                html=input("currencyAmount","Amount","number","100")+select("currencyFrom","From",[["INR","INR"],["USD","USD"],["EUR","EUR"],["GBP","GBP"]])+select("currencyTo","To",[["USD","USD"],["INR","INR"],["EUR","EUR"],["GBP","GBP"]])+`<button class="quick-calc-btn" onclick="calculateCurrency()">Convert</button>`;
+            }else if(name==="Temperature"){
+                html=input("tempAmount","Value","number","25")+select("tempFrom","From",[["C","Celsius (°C)"],["F","Fahrenheit (°F)"],["K","Kelvin (K)"]])+select("tempTo","To",[["F","Fahrenheit (°F)"],["C","Celsius (°C)"],["K","Kelvin (K)"]])+`<button class="quick-calc-btn" onclick="calculateTemperature()">Convert</button>`;
+            }else if(name==="Data Converter"){
+                html=input("dataAmount","Value","number","1")+select("dataFrom","From",[["B","Bytes"],["KB","KB"],["MB","MB"],["GB","GB"],["TB","TB"]])+select("dataTo","To",[["KB","KB"],["MB","MB"],["GB","GB"],["TB","TB"],["B","Bytes"]])+`<button class="quick-calc-btn" onclick="calculateData()">Convert</button>`;
+            }else if(name==="Salary Calculator"){
+                html=input("salaryCTC","Annual CTC (₹)","number","600000")+input("salaryDed","Monthly Deductions (₹)","number","5000")+`<button class="quick-calc-btn" onclick="calculateSalary()">Calculate Salary</button>`;
+            }else if(name==="Trip Cost"){
+                html=input("tripDistance","Distance (km)","number","500")+input("tripMileage","Mileage (km/l)","number","15")+input("tripFuel","Fuel Price (₹/l)","number","100")+input("tripOther","Other Costs (₹)","number","2000")+`<button class="quick-calc-btn" onclick="calculateTrip()">Calculate Trip Cost</button>`;
+            }else if(name==="Fuel Calculator"){
+                html=input("fuelDistance","Distance (km)","number","500")+input("fuelMileage","Mileage (km/l)","number","15")+input("fuelPrice","Fuel Price (₹/l)","number","100")+`<button class="quick-calc-btn" onclick="calculateFuel()">Calculate Fuel Cost</button>`;
+            }else if(name==="BMI Calculator"){
+                html=input("bmiWeight","Weight (kg)","number","70")+input("bmiHeight","Height (cm)","number","175")+`<button class="quick-calc-btn" onclick="calculateBMI()">Calculate BMI</button>`;
+            }
+            form.innerHTML=html;
+            modal.classList.add("show");
+        }
+        function showQuickResult(html){const r=document.getElementById("quickResult");r.innerHTML=html;r.className="quick-result show";}
+        function n(id){const e=document.getElementById(id);return e?parseFloat(e.value)||0:0;}
+        function gcd(a,b){a=Math.abs(Math.trunc(a));b=Math.abs(Math.trunc(b));while(b){const t=a%b;a=b;b=t;}return a||1;}
+        function money(x){return "₹"+Number(x).toLocaleString("en-IN",{maximumFractionDigits:2});}
+        function calculateScientific(){let e=document.getElementById("sciExpr").value.trim();if(!e)return showQuickResult("Please enter an expression.");const fn=document.getElementById("sciFunc").value;if(fn!=="none"){const x=Number(e);if(!Number.isFinite(x))return showQuickResult("Enter a valid number.");const f={sqrt:Math.sqrt,sin:x=>Math.sin(x*Math.PI/180),cos:x=>Math.cos(x*Math.PI/180),tan:x=>Math.tan(x*Math.PI/180),log:Math.log10,ln:Math.log}[fn];return showQuickResult("Result<br><strong>"+f(x)+"</strong>");}e=e.replace(/\^/g,"**");if(!/^[0-9+\-*/().%\s]+$/.test(e))return showQuickResult("Only basic mathematical expressions are allowed.");try{const x=Function('"use strict";return ('+e+')')();if(!Number.isFinite(x))throw 0;showQuickResult("Result<br><strong>"+x+"</strong>");}catch(_){showQuickResult("Could not calculate the expression.");}}
+        function calculateFraction(){const a=n("fa"),b=n("fb"),c=n("fc"),d=n("fd"),op=document.getElementById("fop").value;if(!b||!d)return showQuickResult("Denominator cannot be zero.");let num,den;if(op==="+"){num=a*d+c*b;den=b*d}else if(op==="-"){num=a*d-c*b;den=b*d}else if(op==="*"){num=a*c;den=b*d}else{if(!c)return showQuickResult("Cannot divide by zero fraction.");num=a*d;den=b*c}if(den<0){num=-num;den=-den}const g=gcd(num,den);showQuickResult("Result<br><strong>"+(num/g)+" / "+(den/g)+"</strong><br>Decimal: "+(num/den).toFixed(4));}
+        function calculatePercentage(){const v=n("pctValue"),t=n("pctTotal"),old=n("pctOld"),nw=n("pctNew");let out=t?((v/t)*100).toFixed(2)+"%":"Enter a valid total.";if(old&&nw)out+="<br>Change: <strong>"+(((nw-old)/old)*100).toFixed(2)+"%</strong>";showQuickResult("Percentage<br><strong>"+out+"</strong>");}
+        function calculateRatio(){const a=n("ratioA"),b=n("ratioB"),c=n("ratioC");if(!a||!b)return showQuickResult("Enter valid ratio values.");const d=b*c/a;const g=gcd(a,b);showQuickResult("Ratio: <strong>"+(a/g)+":"+(b/g)+"</strong><br>For "+a+":"+b+" = "+c+":D<br>D = <strong>"+d.toFixed(2)+"</strong>");}
+        function calculateEMI(){const p=n("loanAmount"),r=n("interestRate")/1200,m=n("loanYears")*12;if(!p||!m)return showQuickResult("Please enter valid loan details.");const emi=r?p*r*Math.pow(1+r,m)/(Math.pow(1+r,m)-1):p/m;showQuickResult("Monthly EMI<br><strong>"+money(emi)+"</strong><br>Total Payment: "+money(emi*m)+"<br>Total Interest: "+money(emi*m-p));}
+        function calculateGST(){const a=n("gstAmount"),rate=n("gstRate"),mode=document.getElementById("gstMode").value;if(mode==="add"){const g=a*rate/100;showQuickResult("GST Amount<br><strong>"+money(g)+"</strong><br>Total: "+money(a+g));}else{const base=a/(1+rate/100);showQuickResult("GST Amount<br><strong>"+money(a-base)+"</strong><br>Base Amount: "+money(base));}}
+        function calculateSIP(){const p=n("sipMonthly"),r=n("sipRate")/1200,m=n("sipYears")*12;if(!p||!m)return showQuickResult("Please enter valid investment details.");const v=r?p*((Math.pow(1+r,m)-1)/r)*(1+r):p*m;showQuickResult("Estimated Maturity<br><strong>"+money(v)+"</strong><br>Total Invested: "+money(p*m)+"<br>Estimated Gain: "+money(v-p*m));}
+        function calculateCI(){const p=n("ciPrincipal"),r=n("ciRate")/100,t=n("ciYears"),f=n("ciFreq");const a=p*Math.pow(1+r/f,f*t);showQuickResult("Final Amount<br><strong>"+money(a)+"</strong><br>Compound Interest: "+money(a-p));}
+        function calculateSI(){const p=n("siPrincipal"),i=p*n("siRate")*n("siYears")/100;showQuickResult("Simple Interest<br><strong>"+money(i)+"</strong><br>Total Amount: "+money(p+i));}
+        function calculateDiscount(){const p=n("discountPrice"),d=p*n("discountRate")/100;showQuickResult("You Save<br><strong>"+money(d)+"</strong><br>Final Price: "+money(p-d));}
+        function calculateTip(){const b=n("tipBill"),t=b*n("tipRate")/100,people=Math.max(1,Math.floor(n("tipPeople")));showQuickResult("Tip Amount<br><strong>"+money(t)+"</strong><br>Total Bill: "+money(b+t)+"<br>Per Person: "+money((b+t)/people));}
+        function calculateUnitPrice(){const p1=n("upPrice1")/n("upQty1"),p2=n("upPrice2")/n("upQty2");if(!p1||!p2)return showQuickResult("Enter valid prices and quantities.");showQuickResult("Product 1: <strong>"+money(p1)+"/unit</strong><br>Product 2: <strong>"+money(p2)+"/unit</strong><br>Better deal: <strong>"+(p1<p2?"Product 1":"Product 2")+"</strong>");}
+        function calculateAge(){const value=document.getElementById("birthDate").value;if(!value)return showQuickResult("Please select your date of birth.");const dob=new Date(value+"T00:00:00"),now=new Date();if(dob>now)return showQuickResult("Date of birth cannot be in the future.");let y=now.getFullYear()-dob.getFullYear(),m=now.getMonth()-dob.getMonth(),d=now.getDate()-dob.getDate();if(d<0){m--;d+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}if(m<0){y--;m+=12}showQuickResult("Your Age<br><strong>"+y+" years, "+m+" months, "+d+" days</strong>");}
+        function calculateDateDifference(){const a=document.getElementById("date1").value,b=document.getElementById("date2").value;if(!a||!b)return showQuickResult("Please select both dates.");const d=Math.abs((new Date(b+"T00:00:00")-new Date(a+"T00:00:00"))/86400000);showQuickResult("Difference<br><strong>"+d.toLocaleString("en-IN")+" days</strong>");}
+        function calculateTime(){let total=n("hours1")*60+n("minutes1")+n("hours2")*60+n("minutes2");showQuickResult("Total Time<br><strong>"+Math.floor(total/60)+" hours "+(total%60)+" minutes</strong>");}
+        function calculateUnit(){const a=n("unitAmount"),t=document.getElementById("unitType").value,map={kmmi:[.621371,"miles"],mikl:[1.609344,"km"],kgpound:[2.20462262,"lb"],poundkg:[.45359237,"kg"],cmft:[.0328084,"ft"],ftcm:[30.48,"cm"]};showQuickResult("Result<br><strong>"+(a*map[t][0]).toFixed(4)+" "+map[t][1]+"</strong>");}
+        function calculateCurrency(){const rates={INR:1,USD:83.5,EUR:90.5,GBP:106},a=n("currencyAmount"),f=document.getElementById("currencyFrom").value,t=document.getElementById("currencyTo").value;showQuickResult("Converted Amount<br><strong>"+(a*rates[f]/rates[t]).toFixed(2)+" "+t+"</strong>");}
+        function calculateTemperature(){const v=n("tempAmount"),f=document.getElementById("tempFrom").value,t=document.getElementById("tempTo").value;const c=f==="C"?v:f==="F"?(v-32)*5/9:v-273.15;const x=t==="C"?c:t==="F"?c*9/5+32:c+273.15;showQuickResult("Result<br><strong>"+x.toFixed(2)+" °"+(t==="K"?"K":t)+"</strong>");}
+        function calculateData(){const units={B:1,KB:1024,MB:1024**2,GB:1024**3,TB:1024**4},v=n("dataAmount"),f=document.getElementById("dataFrom").value,t=document.getElementById("dataTo").value;showQuickResult("Result<br><strong>"+(v*units[f]/units[t]).toFixed(4)+" "+t+"</strong>");}
+        function calculateSalary(){const c=n("salaryCTC"),d=n("salaryDed"),gross=c/12;showQuickResult("Monthly Gross<br><strong>"+money(gross)+"</strong><br>Estimated Monthly Take-home: "+money(gross-d)+"<br>Annual Gross: "+money(c));}
+        function calculateTrip(){const litres=n("tripDistance")/(n("tripMileage")||1),fuel=litres*n("tripFuel"),total=fuel+n("tripOther");showQuickResult("Fuel Cost<br><strong>"+money(fuel)+"</strong><br>Total Trip Cost: <strong>"+money(total)+"</strong>");}
+        function calculateFuel(){const litres=n("fuelDistance")/(n("fuelMileage")||1);showQuickResult("Fuel Needed<br><strong>"+litres.toFixed(2)+" L</strong><br>Fuel Cost: "+money(litres*n("fuelPrice")));}
+        function calculateBMI(){const h=n("bmiHeight")/100,w=n("bmiWeight");if(!h||!w)return showQuickResult("Enter valid height and weight.");const b=w/(h*h),cat=b<18.5?"Underweight":b<25?"Normal":b<30?"Overweight":"Obesity";showQuickResult("BMI<br><strong>"+b.toFixed(2)+"</strong><br>Category: "+cat);}
+        function closeQuickCalculator(event){if(event&&event.target!==event.currentTarget)return;document.getElementById("quickModal").classList.remove("show");}
+
+        /* ==========================
+           THEME
+        ========================== */
+
+        function toggleTheme() {
+
+            document.body.classList.toggle(
+                "light"
+            );
+
+
+            const button =
+                document.getElementById(
+                    "themeButton"
+                );
+
+
+            if (
+                document.body.classList.contains(
+                    "light"
+                )
+            ) {
+
+                button.textContent =
+                    "🌙";
+
+                localStorage.setItem(
+                    "nexcalcTheme",
+                    "light"
+                );
+
+            } else {
+
+                button.textContent =
+                    "☀️";
+
+                localStorage.setItem(
+                    "nexcalcTheme",
+                    "dark"
+                );
+
+            }
+
+        }
+
+
+        function loadTheme() {
+
+            const theme =
+                localStorage.getItem(
+                    "nexcalcTheme"
+                );
+
+
+            if (theme === "light") {
+
+                document.body.classList.add(
+                    "light"
+                );
+
+                document.getElementById(
+                    "themeButton"
+                ).textContent =
+                    "🌙";
+
+            }
+
+        }
+
+
+        loadTheme();
+
+
+        /* ==========================
+           TOAST
+        ========================== */
+
+        let toastTimer;
+
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById(
+                    "toast"
+                );
+
+
+            toast.textContent =
+                message;
+
+
+            toast.classList.add(
+                "show"
+            );
+
+
+            clearTimeout(
+                toastTimer
+            );
+
+
+            toastTimer =
+                setTimeout(
+                    function() {
+
+                        toast.classList.remove(
+                            "show"
+                        );
+
+                    },
+                    2500
+                );
+
+        }
+
+    </script>
+
+</body>
+</html>

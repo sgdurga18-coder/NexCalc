@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#0b0b0f">
+    <meta name="description" content="NEXCALC - Smart all-in-one calculator">
+
+    <title>NEXCALC — Smart Calculator</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Inter, Arial, Helvetica, sans-serif;
+        }
+
+        :root {
+            --bg: #07070a;
+            --card: #111116;
+            --card2: #17171e;
+            --border: rgba(255,255,255,0.08);
+            --text: #ffffff;
+            --muted: #9898a7;
+            --accent: #7c5cff;
+            --accent2: #9d88ff;
+            --button: #1b1b23;
+            --danger: #ff5c7a;
+            --success: #35d49a;
+        }
+
+        body.light {
+            --bg: #f5f5f8;
+            --card: #ffffff;
+            --card2: #eeeeF4;
+            --border: rgba(0,0,0,0.08);
+            --text: #111116;
+            --muted: #6e6e7c;
+            --button: #e9e9ef;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 50% -10%, rgba(124,92,255,0.18), transparent 35%),
+                var(--bg);
+            color: var(--text);
+            transition: 0.3s ease;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            width: 100%;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            border-bottom: 1px solid var(--border);
+            background: rgba(7,7,10,0.75);
+            backdrop-filter: blur(18px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        body.light header {
+            background: rgba(255,255,255,0.8);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #7c5cff, #b39cff);
+            box-shadow: 0 8px 25px rgba(124,92,255,0.35);
+            font-size: 20px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.2s;
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(124,92,255,0.5);
+        }
+
+        /* ================= MAIN ================= */
+
+        main {
+            width: min(1180px, 92%);
+            margin: auto;
+            padding: 45px 0 110px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 7px 14px;
+            border: 1px solid rgba(124,92,255,0.35);
+            background: rgba(124,92,255,0.1);
+            color: #b9aaff;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 5vw, 60px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #ffffff, #a893ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 15px auto 0;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search-box {
+            max-width: 650px;
+            margin: 0 auto 35px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            height: 54px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            outline: none;
+            padding: 0 20px 0 50px;
+            background: var(--card);
+            color: var(--text);
+            font-size: 15px;
+            transition: 0.25s;
+        }
+
+        .search-box input:focus {
+            border-color: rgba(124,92,255,0.6);
+            box-shadow: 0 0 0 4px rgba(124,92,255,0.08);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 17px;
+            font-size: 19px;
+            opacity: 0.65;
+        }
+
+        /* ================= CALCULATOR ================= */
+
+        .calculator-section {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .calculator-card,
+        .smart-card {
+            border: 1px solid var(--border);
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.04),
+                rgba(255,255,255,0.015)
+            );
+            background-color: var(--card);
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .calculator-card {
+            padding: 22px;
+        }
+
+        .calculator-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .calculator-title {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .mode {
+            font-size: 12px;
+            color: var(--muted);
+            padding: 7px 11px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+        }
+
+        .display {
+            min-height: 150px;
+            border: 1px solid var(--border);
+            border-radius: 19px;
+            background: var(--card2);
+            padding: 22px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            text-align: right;
+            overflow: hidden;
+        }
+
+        .expression {
+            min-height: 28px;
+            color: var(--muted);
+            font-size: 18px;
+            word-break: break-all;
+        }
+
+        .result {
+            margin-top: 7px;
+            font-size: clamp(34px, 5vw, 48px);
+            font-weight: 700;
+            letter-spacing: -1px;
+            word-break: break-all;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .key {
+            height: 62px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: var(--button);
+            color: var(--text);
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s ease;
+        }
+
+        .key:hover {
+            transform: translateY(-2px);
+            border-color: rgba(124,92,255,0.35);
+        }
+
+        .key:active {
+            transform: scale(0.96);
+        }
+
+        .key.operator {
+            color: #b9aaff;
+            background: rgba(124,92,255,0.11);
+        }
+
+        .key.action {
+            color: var(--danger);
+        }
+
+        .key.equal {
+            background: linear-gradient(135deg, #7c5cff, #6241e8);
+            border: none;
+            color: white;
+            box-shadow: 0 8px 25px rgba(124,92,255,0.3);
+        }
+
+        /* ================= SMART CARD ================= */
+
+        .smart-card {
+            padding: 25px;
+            min-height: 100%;
+        }
+
+        .smart-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: rgba(124,92,255,0.1);
+            color: #b7a8ff;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .smart-card h2 {
+            margin-top: 18px;
+            font-size: 29px;
+            letter-spacing: -0.8px;
+        }
+
+        .smart-card > p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-top: 10px;
+        }
+
+        .what-if-demo {
+            margin-top: 22px;
+            padding: 18px;
+            border: 1px solid var(--border);
+            background: var(--card2);
+            border-radius: 18px;
+        }
+
+        .demo-title {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 15px;
+        }
+
+        .demo-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .demo-row:last-child {
+            border-bottom: none;
+        }
+
+        .demo-row span:last-child {
+            font-weight: 700;
+        }
+
+        .before {
+            color: var(--muted);
+        }
+
+        .after {
+            color: var(--success);
+        }
+
+        .smart-button {
+            width: 100%;
+            height: 50px;
+            margin-top: 18px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #7c5cff, #6241e8);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .smart-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(124,92,255,0.25);
+        }
+
+        /* ================= TOOLS ================= */
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 55px 0 18px;
+        }
+
+        .section-header h2 {
+            font-size: 25px;
+        }
+
+        .section-header span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 13px;
+        }
+
+        .tool-card {
+            min-height: 135px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            border-radius: 19px;
+            padding: 18px;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(124,92,255,0.4);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+        }
+
+        .tool-icon {
+            width: 43px;
+            height: 43px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            background: rgba(124,92,255,0.11);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .tool-card h3 {
+            font-size: 15px;
+        }
+
+        .tool-card p {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        /* ================= FEATURE STRIP ================= */
+
+        .feature-strip {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px;
+        }
+
+        .feature {
+            border: 1px solid var(--border);
+            background: var(--card);
+            padding: 20px;
+            border-radius: 18px;
+        }
+
+        .feature-icon {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .feature h3 {
+            font-size: 14px;
+        }
+
+        .feature p {
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+            padding: 30px 20px 100px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        footer strong {
+            color: var(--text);
+        }
+
+        /* ================= BOTTOM NAV ================= */
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(500px, 92%);
+            height: 65px;
+            border: 1px solid var(--border);
+            background: rgba(17,17,22,0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            z-index: 200;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        body.light .bottom-nav {
+            background: rgba(255,255,255,0.9);
+        }
+
+        .nav-item {
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 11px;
+            transition: 0.2s;
+        }
+
+        .nav-icon {
+            display: block;
+            font-size: 19px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: var(--accent2);
+        }
+
+        /* ================= TOAST ================= */
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 95px;
+            transform: translate(-50%, 20px);
+            background: #202028;
+            color: white;
+            border: 1px solid var(--border);
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.25s ease;
+            z-index: 500;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+            .calculator-section {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .feature-strip {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 0 4%;
+            }
+
+            main {
+                width: 94%;
+                padding-top: 30px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1.5px;
+            }
+
+            .calculator-card,
+            .smart-card {
+                padding: 16px;
+                border-radius: 20px;
+            }
+
+            .key {
+                height: 57px;
+                border-radius: 14px;
+            }
+
+            .display {
+                min-height: 130px;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tool-card {
+                min-height: 125px;
+            }
+
+            .header-actions .icon-btn:first-child {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <div class="logo">
+            <div class="logo-icon">🧮</div>
+            <span>NEXCALC</span>
+        </div>
+
+        <div class="header-actions">
+
+            <button
+                class="icon-btn"
+                id="themeButton"
+                onclick="toggleTheme()"
+                title="Change theme">
+                ☀️
+            </button>
+
+            <button
+                class="icon-btn"
+                onclick="showToast('More features coming soon')"
+                title="Menu">
+                ⋮
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                ✨ SMART CALCULATION ENGINE
+            </div>
+
+            <h1>
+                Calculate
+                <span class="gradient-text">Anything.</span>
+            </h1>
+
+            <p>
+                A powerful all-in-one calculator designed for everyday
+                calculations, advanced mathematics and smarter decision making.
+            </p>
+
+        </section>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <span class="search-icon">🔍</span>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search calculator — EMI, GST, discount, age..."
+                oninput="searchTools()">
+
+        </div>
+
+
+        <!-- CALCULATOR + WHAT IF -->
+
+        <section class="calculator-section">
+
+            <!-- CALCULATOR -->
+
+            <div class="calculator-card">
+
+                <div class="calculator-top">
+
+                    <div class="calculator-title">
+                        Calculator
+                    </div>
+
+                    <div class="mode">
+                        Basic Mode
+                    </div>
+
+                </div>
+
+
+                <div class="display">
+
+                    <div
+                        class="expression"
+                        id="expression">
+                    </div>
+
+                    <div
+                        class="result"
+                        id="result">
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="keypad">
+
+                    <button class="key action" onclick="clearCalculator()">AC</button>
+
+                    <button class="key action" onclick="backspace()">⌫</button>
+
+                    <button class="key operator" onclick="percentage()">%</button>
+
+                    <button class="key operator" onclick="addOperator('/')">÷</button>
+
+
+                    <button class="key" onclick="addNumber('7')">7</button>
+
+                    <button class="key" onclick="addNumber('8')">8</button>
+
+                    <button class="key" onclick="addNumber('9')">9</button>
+
+                    <button class="key operator" onclick="addOperator('*')">×</button>
+
+
+                    <button class="key" onclick="addNumber('4')">4</button>
+
+                    <button class="key" onclick="addNumber('5')">5</button>
+
+                    <button class="key" onclick="addNumber('6')">6</button>
+
+                    <button class="key operator" onclick="addOperator('-')">−</button>
+
+
+                    <button class="key" onclick="addNumber('1')">1</button>
+
+                    <button class="key" onclick="addNumber('2')">2</button>
+
+                    <button class="key" onclick="addNumber('3')">3</button>
+
+                    <button class="key operator" onclick="addOperator('+')">+</button>
+
+
+                    <button class="key" onclick="toggleSign()">±</button>
+
+                    <button class="key" onclick="addNumber('0')">0</button>
+
+                    <button class="key" onclick="addDecimal()">.</button>
+
+                    <button class="key equal" onclick="calculate()">=</button>
+
+                </div>
+
+            </div>
+
+
+            <!-- UNIVERSAL WHAT IF -->
+
+            <div class="smart-card">
+
+                <div class="smart-label">
+                    ✨ NEXCALC SIGNATURE
+                </div>
+
+                <h2>
+                    Universal<br>
+                    What-If
+                </h2>
+
+                <p>
+                    Change one input and instantly see how the complete
+                    calculation changes.
+                </p>
+
+
+                <div class="what-if-demo">
+
+                    <div class="demo-title">
+                        Example — Car Finance
+                    </div>
+
+                    <div class="demo-row">
+                        <span>Car Price</span>
+                        <span>₹15,00,000</span>
+                    </div>
+
+                    <div class="demo-row">
+                        <span>Down Payment</span>
+                        <span class="before">₹3,00,000</span>
+                    </div>
+
+                    <div class="demo-row">
+                        <span>New Down Payment</span>
+                        <span class="after">₹5,00,000</span>
+                    </div>
+
+                    <div class="demo-row">
+                        <span>Loan Amount</span>
+                        <span class="after">↓ Reduced</span>
+                    </div>
+
+                    <div class="demo-row">
+                        <span>EMI</span>
+                        <span class="after">↓ Reduced</span>
+                    </div>
+
+                    <div class="demo-row">
+                        <span>Total Interest</span>
+                        <span class="after">↓ Saved</span>
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="smart-button"
+                    onclick="openWhatIf()">
+                    Explore What-If →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- TOOLS -->
+
+        <div class="section-header">
+
+            <h2>Quick Calculators</h2>
+
+            <span>Coming in next versions</span>
+
+        </div>
+
+
+        <section
+            class="tools-grid"
+            id="toolsGrid">
+
+            <div
+                class="tool-card"
+                data-name="emi loan calculator"
+                onclick="openTool('EMI Calculator')">
+
+                <div class="tool-icon">💰</div>
+
+                <h3>EMI Calculator</h3>
+
+                <p>Loan & monthly payment</p>
+
+            </div>
+
+
+            <div
+                class="tool-card"
+                data-name="gst tax calculator"
+                onclick="openTool('GST Calculator')">
+
+                <div class="tool-icon">🧾</div>
+
+                <h3>GST Calculator</h3>
+
+                <p>Calculate GST instantly</p>
+
+            </div>
+
+
+            <div
+                class="tool-card"
+                data-name="discount shopping calculator"
+                onclick="openTool('Discount Calculator')">
+
+                <div class="tool-icon">🛍️</div>
+
+                <h3>Discount</h3>
+
+                <p>Sale price & savings</p>
+
+            </div>
+
+
+            <div
+                class="tool-card"
+                data-name="age birthday calculator"
+                onclick="openTool('Age Calculator')">
+
+                <div class="tool-icon">🎂</div>
+
+                <h3>Age Calculator</h3>
+
+                <p>Exact age & birthday</p>
+
+            </div>
+
+
+            <div
+                class="tool-card"
+                data-name="currency exchange calculator"
+                onclick="openTool('Currency Converter')">
+
+                <div class="tool-icon">💱</div>
+
+                <h3>Currency</h3>
+
+                <p>Convert currencies</p>
+
+            </div>
+
+
+            <div
+                class="tool-card"
+                data-name="unit length weight converter"
+                onclick="openTool('Unit Converter')">
+
+                <div class="tool-icon">📏</div>
+
+                <h3>Unit Converter</h3>
+
+                <p>Length, weight & more</p>
+
+            </div>
+
+
+            <div
+                class="tool-card"
+                data-name="investment sip return calculator"
+                onclick="openTool('Investment Calculator')">
+
+                <div class="tool-icon">📈</div>
+
+                <h3>Investment</h3>
+
+                <p>Returns & growth</p>
+
+            </div>
+
+
+            <div
+                class="tool-card"
+                data-name="time hours minutes calculator"
+                onclick="openTool('Time Calculator')">
+
+                <div class="tool-icon">⏱️</div>
+
+                <h3>Time Calculator</h3>
+
+                <p>Hours & time difference</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- FEATURES -->
+
+        <section class="feature-strip">
+
+            <div class="feature">
+
+                <div class="feature-icon">⚡</div>
+
+                <h3>Instant Results</h3>
+
+                <p>
+                    Get calculations quickly with a clean,
+                    responsive interface.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">🧠</div>
+
+                <h3>Smart Calculation</h3>
+
+                <p>
+                    Built to evolve from a simple calculator
+                    into a powerful calculation engine.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">🔄</div>
+
+                <h3>What-If Thinking</h3>
+
+                <p>
+                    Change values and understand how your
+                    final result changes.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <strong>NEXCALC</strong>
+
+        <br><br>
+
+        Calculate. Change. See what happens.
+
+        <br><br>
+
+        © 2026 NEXCALC. Version 1.0
+
+    </footer>
+
+
+    <!-- ================= BOTTOM NAV ================= -->
+
+    <nav class="bottom-nav">
+
+        <button
+            class="nav-item active"
+            onclick="window.location.href='index.html'">
+
+            <span class="nav-icon">🧮</span>
+
+            Calculator
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="window.location.href='tools.html'">
+
+            <span class="nav-icon">🛠️</span>
+
+            Tools
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="window.location.href='history.html'">
+
+            <span class="nav-icon">📜</span>
+
+            History
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="window.location.href='premium.html'">
+
+            <span class="nav-icon">👑</span>
+
+            Premium
+
+        </button>
+
+    </nav>
+
+
+    <!-- TOAST -->
+
+    <div
+        class="toast"
+        id="toast">
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        /* =========================================
+           CALCULATOR ENGINE
+        ========================================= */
+
+        let currentInput = "";
+        let previousInput = "";
+        let operator = "";
+        let shouldResetDisplay = false;
+
+
+        const resultDisplay =
+            document.getElementById("result");
+
+        const expressionDisplay =
+            document.getElementById("expression");
+
+
+        function updateDisplay() {
+
+            resultDisplay.textContent =
+                currentInput || "0";
+
+            expressionDisplay.textContent =
+                previousInput && operator
+                ? previousInput + " " + displayOperator(operator)
+                : "";
+
+        }
+
+
+        function displayOperator(op) {
+
+            if (op === "*") return "×";
+            if (op === "/") return "÷";
+            if (op === "-") return "−";
+
+            return op;
+        }
+
+
+        function addNumber(number) {
+
+            if (shouldResetDisplay) {
+
+                currentInput = "";
+                shouldResetDisplay = false;
+
+            }
+
+            if (currentInput === "0") {
+
+                currentInput = number;
+
+            } else {
+
+                currentInput += number;
+
+            }
+
+            updateDisplay();
+
+        }
+
+
+        function addDecimal() {
+
+            if (shouldResetDisplay) {
+
+                currentInput = "0";
+                shouldResetDisplay = false;
+
+            }
+
+            if (!currentInput.includes(".")) {
+
+                currentInput += ".";
+
+            }
+
+            updateDisplay();
+
+        }
+
+
+        function addOperator(op) {
+
+            if (currentInput === "" && previousInput === "") {
+                return;
+            }
+
+            if (currentInput !== "" && previousInput !== "") {
+
+                calculate();
+
+            }
+
+            previousInput =
+                currentInput || previousInput;
+
+            operator = op;
+
+            currentInput = "";
+
+            updateDisplay();
+
+        }
+
+
+        function saveHistoryEntry(expression, result) {
+
+            const HISTORY_KEY = "nexcalcHistory";
+
+            try {
+                const history = JSON.parse(
+                    localStorage.getItem(HISTORY_KEY)
+                ) || [];
+
+                history.unshift({
+                    id: Date.now() + Math.random(),
+                    expression: expression,
+                    result: String(result),
+                    date: new Date().toISOString()
+                });
+
+                localStorage.setItem(
+                    HISTORY_KEY,
+                    JSON.stringify(history.slice(0, 100))
+                );
+            } catch (error) {
+                console.error("Could not save calculation history:", error);
+            }
+
+        }
+
+
+        function calculate() {
+
+            if (
+                previousInput === "" ||
+                currentInput === "" ||
+                operator === ""
+            ) {
+
+                return;
+
+            }
+
+            const first =
+                parseFloat(previousInput);
+
+            const second =
+                parseFloat(currentInput);
+
+            let answer;
+
+
+            switch (operator) {
+
+                case "+":
+                    answer = first + second;
+                    break;
+
+                case "-":
+                    answer = first - second;
+                    break;
+
+                case "*":
+                    answer = first * second;
+                    break;
+
+                case "/":
+
+                    if (second === 0) {
+
+                        showToast("Cannot divide by zero");
+
+                        clearCalculator();
+
+                        return;
+
+                    }
+
+                    answer = first / second;
+
+                    break;
+
+            }
+
+
+            answer =
+                Math.round((answer + Number.EPSILON) * 100000000) / 100000000;
+
+
+            const historyExpression =
+                previousInput +
+                " " +
+                displayOperator(operator) +
+                " " +
+                currentInput;
+
+            expressionDisplay.textContent =
+                historyExpression +
+                " =";
+
+            saveHistoryEntry(historyExpression, answer);
+
+            currentInput =
+                String(answer);
+
+            previousInput = "";
+
+            operator = "";
+
+            shouldResetDisplay = true;
+
+
+            updateResultOnly();
+
+        }
+
+
+        function updateResultOnly() {
+
+            resultDisplay.textContent =
+                currentInput || "0";
+
+        }
+
+
+        function clearCalculator() {
+
+            currentInput = "";
+            previousInput = "";
+            operator = "";
+
+            shouldResetDisplay = false;
+
+            updateDisplay();
+
+        }
+
+
+        function backspace() {
+
+            if (shouldResetDisplay) {
+
+                clearCalculator();
+
+                return;
+
+            }
+
+            currentInput =
+                currentInput.slice(0, -1);
+
+            updateDisplay();
+
+        }
+
+
+        function percentage() {
+
+            if (currentInput === "") {
+                return;
+            }
+
+            currentInput =
+                String(parseFloat(currentInput) / 100);
+
+            updateDisplay();
+
+        }
+
+
+        function toggleSign() {
+
+            if (currentInput === "" || currentInput === "0") {
+                return;
+            }
+
+            currentInput =
+                currentInput.startsWith("-")
+                ? currentInput.substring(1)
+                : "-" + currentInput;
+
+            updateDisplay();
+
+        }
+
+
+        /* =========================================
+           KEYBOARD SUPPORT
+        ========================================= */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                const key =
+                    event.key;
+
+
+                if (!isNaN(key)) {
+
+                    addNumber(key);
+
+                    return;
+
+                }
+
+
+                if (key === ".") {
+
+                    addDecimal();
+
+                    return;
+
+                }
+
+
+                if (
+                    key === "+" ||
+                    key === "-" ||
+                    key === "*" ||
+                    key === "/"
+                ) {
+
+                    addOperator(key);
+
+                    return;
+
+                }
+
+
+                if (key === "Enter" || key === "=") {
+
+                    event.preventDefault();
+
+                    calculate();
+
+                    return;
+
+                }
+
+
+                if (key === "Backspace") {
+
+                    backspace();
+
+                    return;
+
+                }
+
+
+                if (key === "Escape") {
+
+                    clearCalculator();
+
+                    return;
+
+                }
+
+
+                if (key === "%") {
+
+                    percentage();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           SEARCH
+        ========================================= */
+
+        function searchTools() {
+
+            const query =
+                document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+
+            const tools =
+                document.querySelectorAll(".tool-card");
+
+
+            tools.forEach(function(tool) {
+
+                const name =
+                    tool.dataset.name;
+
+                if (
+                    name.includes(query) ||
+                    query === ""
+                ) {
+
+                    tool.style.display =
+                        "block";
+
+                } else {
+
+                    tool.style.display =
+                        "none";
+
+                }
+
+            });
+
+        }
+
+
+        /* =========================================
+           TOOLS
+        ========================================= */
+
+        function openTool(name) {
+
+            showToast(
+                name +
+                " will be available in the next version."
+            );
+
+        }
+
+
+        /* =========================================
+           WHAT IF
+        ========================================= */
+
+        function openWhatIf() {
+
+            showToast(
+                "Universal What-If Engine is coming in Version 3."
+            );
+
+        }
+
+
+        /* =========================================
+           DARK / LIGHT MODE
+        ========================================= */
+
+        function toggleTheme() {
+
+            document.body.classList.toggle("light");
+
+
+            const button =
+                document.getElementById("themeButton");
+
+
+            if (
+                document.body.classList.contains("light")
+            ) {
+
+                button.textContent = "🌙";
+
+                localStorage.setItem(
+                    "nexcalcTheme",
+                    "light"
+                );
+
+            } else {
+
+                button.textContent = "☀️";
+
+                localStorage.setItem(
+                    "nexcalcTheme",
+                    "dark"
+                );
+
+            }
+
+        }
+
+
+        function loadTheme() {
+
+            const theme =
+                localStorage.getItem("nexcalcTheme");
+
+
+            if (theme === "light") {
+
+                document.body.classList.add("light");
+
+                document.getElementById(
+                    "themeButton"
+                ).textContent = "🌙";
+
+            }
+
+        }
+
+
+        loadTheme();
+
+
+        /* =========================================
+           BOTTOM NAVIGATION
+        ========================================= */
+
+        function setActiveNav(button, name) {
+
+            document
+                .querySelectorAll(".nav-item")
+                .forEach(function(item) {
+
+                    item.classList.remove("active");
+
+                });
+
+
+            button.classList.add("active");
+
+
+            if (name !== "Calculator") {
+
+                showToast(
+                    name +
+                    " section will be added soon."
+                );
+
+            }
+
+        }
+
+
+        /* =========================================
+           TOAST
+        ========================================= */
+
+        let toastTimer;
+
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById("toast");
+
+
+            toast.textContent =
+                message;
+
+
+            toast.classList.add("show");
+
+
+            clearTimeout(toastTimer);
+
+
+            toastTimer =
+                setTimeout(function() {
+
+                    toast.classList.remove("show");
+
+                }, 2500);
+
+        }
+
+    </script>
+
+</body>
+</html>
