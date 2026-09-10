@@ -633,6 +633,7 @@
             }
         }
     </style>
+  <script type="module" src="analytics.js"></script>
 </head>
 
 <body>
@@ -1544,13 +1545,8 @@
         ========================================= */
 
         function openTool(name) {
-
-            showToast(
-                name +
-                " will be available in the next version."
-            );
-
-        }
+  window.location.href = 'tools.html';
+}
 
 
         /* =========================================
