@@ -643,29 +643,20 @@
     </style>
   <script type="module" src="analytics.js"></script>
 
-    <!-- ================= FIREBASE LOGIN GUARD ================= -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-        import { firebaseConfig } from "./firebase-config.js";
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const ADMIN_EMAIL = "sgdurga18@gmail.com";
-
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                window.location.replace("login.html");
-                return;
-            }
-
-            const email = (user.email || "").toLowerCase().trim();
-            if (email === ADMIN_EMAIL.toLowerCase()) {
-                window.location.replace("admin-dashboard.html");
-            }
-        });
+    <!-- ================= LOGIN-FIRST REDIRECT ================= -->
+    <script>
+        /*
+         * NexCalc opens with login.html first.
+         * login.html then sends:
+         *   - normal users -> index.html
+         *   - admin -> admin-dashboard.html
+         *
+         * This intentionally does not initialize Firebase here, so the
+         * landing-page redirect cannot be blocked by a Firebase module error.
+         */
+        window.location.replace("login.html");
     </script>
-    <!-- ================= END FIREBASE LOGIN GUARD ================= -->
+    <!-- ================= END LOGIN-FIRST REDIRECT ================= -->
 </head>
 
 <body>
