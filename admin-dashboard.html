@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -278,6 +277,7 @@
 
     }
   </style>
+  <script type="module" src="./analytics.js"></script>
 </head>
 
 <body>
@@ -388,6 +388,27 @@
 
       </div>
 
+
+      <!-- ANALYTICS OVERVIEW -->
+      <div class="section-title">📊 Analytics Overview</div>
+      <div class="stats">
+        <div class="stat-card"><div class="stat-title">Total Users</div><div class="stat-value" id="totalUsers">—</div></div>
+        <div class="stat-card"><div class="stat-title">Daily Active Users</div><div class="stat-value" id="dailyUsers">—</div></div>
+        <div class="stat-card"><div class="stat-title">Today's Users</div><div class="stat-value" id="todayUsers">—</div></div>
+        <div class="stat-card"><div class="stat-title">Premium Users</div><div class="stat-value" id="premiumUsers">—</div></div>
+        <div class="stat-card"><div class="stat-title">Revenue</div><div class="stat-value" id="revenue">₹—</div></div>
+        <div class="stat-card"><div class="stat-title">Total Calculations</div><div class="stat-value" id="analyticsCalculationCount">0</div></div>
+        <div class="stat-card"><div class="stat-title">Most Used Calculator</div><div class="stat-value" id="mostUsedCalculator">—</div></div>
+        <div class="stat-card"><div class="stat-title">Usage Events</div><div class="stat-value" id="usageEvents">0</div></div>
+      </div>
+      <div class="account">
+        <div class="section-title">Usage Statistics</div>
+        <div id="usageStatistics" style="color:#aaa;font-size:14px;line-height:1.8;">No calculator usage recorded yet.</div>
+        <p style="margin-top:14px;color:#777;font-size:12px;line-height:1.6;">
+          User/revenue totals require a Firebase database/server-side Analytics Data API.
+          This dashboard displays local calculator usage immediately.
+        </p>
+      </div>
 
       <!-- QUICK MANAGEMENT -->
 
@@ -563,6 +584,9 @@
     }
       from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
+    import { getFirestore, collection, getDocs }
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
     import { firebaseConfig }
       from "./firebase-config.js";
 
@@ -576,6 +600,8 @@
 
     const auth =
       getAuth(app);
+
+    const db = getFirestore(app);
 
 
     /* =========================================
@@ -695,6 +721,7 @@
           "historyCount"
         ).textContent =
           history.length;
+        updateUsageOverview();
 
       } catch (error) {
 
@@ -707,6 +734,38 @@
 
     });
 
+
+    async function loadFirebaseDashboardData() {
+      const set = (id, value) => { const el=document.getElementById(id); if(el) el.textContent=value; };
+      try {
+        const usersSnap = await getDocs(collection(db, "users"));
+        const users = usersSnap.docs.map(d => d.data());
+        const today = new Date().toISOString().slice(0,10);
+        const dateOf = v => v?.toDate ? v.toDate() : (v ? new Date(v) : null);
+        const todayUsers = users.filter(u => { const d=dateOf(u.lastActiveAt || u.createdAt); return d && d.toISOString().slice(0,10)===today; });
+        const premium = users.filter(u => u.premium===true || u.isPremium===true || u.plan==='premium').length;
+        set('totalUsers', users.length); set('todayUsers', todayUsers.length);
+
+        const eventsSnap = await getDocs(collection(db, "usageEvents"));
+        const counts = {}; let calculations=0; const dailyIds=new Set();
+        eventsSnap.forEach(doc => { const e=doc.data(); if(e.type!=='calculator_used') return; calculations++; const n=e.calculatorName||'Unknown'; counts[n]=(counts[n]||0)+1; const d=dateOf(e.createdAt); if(d && d.toISOString().slice(0,10)===today && e.uid) dailyIds.add(e.uid); });
+        set('dailyUsers', dailyIds.size); set('premiumUsers', premium); set('analyticsCalculationCount', calculations); set('usageEvents', eventsSnap.size);
+        const entries=Object.entries(counts).sort((a,b)=>b[1]-a[1]); set('mostUsedCalculator', entries[0]?.[0] || '—');
+        const usage=document.getElementById('usageStatistics'); if(usage) usage.innerHTML=entries.length ? entries.map(([n,c])=>`<div style="display:flex;justify-content:space-between;border-bottom:1px solid #22222a;padding:7px 0"><span>${String(n).replace(/[<>&"]/g,'')}</span><strong>${c}</strong></div>`).join('') : 'No calculator usage recorded in Firebase yet.';
+
+        const paymentsSnap = await getDocs(collection(db, "payments")); let revenue=0;
+        paymentsSnap.forEach(doc=>{ const p=doc.data(); if(p.status==='success'||p.status==='paid') revenue += Number(p.amount||0); });
+        set('revenue','₹'+revenue.toLocaleString('en-IN'));
+      } catch(e) { console.error('Firebase dashboard error:',e); ['totalUsers','dailyUsers','todayUsers','premiumUsers','analyticsCalculationCount','usageEvents','mostUsedCalculator'].forEach(id=>set(id,'Error')); set('revenue','₹Error'); }
+    }
+
+    function updateUsageOverview() {
+      try { const stats=JSON.parse(localStorage.getItem('nexcalcUsageStats')||'{}'); const entries=Object.entries(stats).sort((a,b)=>Number(b[1])-Number(a[1])); const total=entries.reduce((s,[,v])=>s+Number(v),0); document.getElementById('analyticsCalculationCount').textContent=total; document.getElementById('usageEvents').textContent=total; document.getElementById('mostUsedCalculator').textContent=entries.length?entries[0][0]:'—'; } catch(e){}
+    }
+    updateUsageOverview();
+    ['totalUsers','dailyUsers','todayUsers','premiumUsers','analyticsCalculationCount','usageEvents','mostUsedCalculator'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='Loading…'});
+    document.getElementById('revenue').textContent='₹Loading…';
+    loadFirebaseDashboardData();
 
     /* =========================================
        LOGOUT
@@ -739,4 +798,3 @@
 
 </body>
 </html>
-```
