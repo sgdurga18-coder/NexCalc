@@ -1,0 +1,713 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NEXCALC — Login</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #07070a;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      text-align: center;
+      color: #999;
+      font-size: 14px;
+      margin-bottom: 26px;
+    }
+
+    .card {
+      background: #111116;
+      border: 1px solid #25252d;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.5);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: #17171e;
+      padding: 4px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 12px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: #999;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: #7c5cff;
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+      color: #aaa;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 11px;
+      border: 1px solid #30303a;
+      background: #0b0b0f;
+      color: #fff;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus {
+      border-color: #7c5cff;
+      box-shadow: 0 0 0 2px rgba(124, 92, 255, 0.12);
+    }
+
+    .main-btn {
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 11px;
+      background: #7c5cff;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .main-btn:hover {
+      opacity: 0.9;
+    }
+
+    .main-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .message {
+      min-height: 20px;
+      margin-top: 15px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .success {
+      color: #55d98b;
+    }
+
+    .error {
+      color: #ff6868;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 22px;
+      color: #999;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .back:hover {
+      color: #fff;
+    }
+
+    #registerForm {
+      display: none;
+    }
+
+    .admin-note {
+      margin-top: 18px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #17171e;
+      color: #777;
+      font-size: 11px;
+      text-align: center;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="logo">NEXCALC</div>
+
+    <div class="tagline">
+      Smart Calculator. Everything in one place.
+    </div>
+
+    <div class="card">
+
+      <!-- LOGIN / REGISTER TABS -->
+      <div class="tabs">
+
+        <button
+          type="button"
+          class="tab active"
+          id="loginTab">
+          Login
+        </button>
+
+        <button
+          type="button"
+          class="tab"
+          id="registerTab">
+          Register
+        </button>
+
+      </div>
+
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm">
+
+        <div class="form-group">
+
+          <label for="loginEmail">
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="loginEmail"
+            placeholder="Enter your email"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="loginPassword">
+            Password
+          </label>
+
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="main-btn"
+          id="loginBtn">
+          Login
+        </button>
+
+      </form>
+
+
+      <!-- REGISTER FORM -->
+      <form id="registerForm">
+
+        <div class="form-group">
+
+          <label for="registerName">
+            Name
+          </label>
+
+          <input
+            type="text"
+            id="registerName"
+            placeholder="Enter your name"
+            autocomplete="name"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="registerEmail">
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="registerEmail"
+            placeholder="Enter your email"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="registerPassword">
+            Password
+          </label>
+
+          <input
+            type="password"
+            id="registerPassword"
+            placeholder="Minimum 6 characters"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          >
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="main-btn"
+          id="registerBtn">
+          Create Account
+        </button>
+
+      </form>
+
+
+      <!-- MESSAGE -->
+      <div
+        id="message"
+        class="message">
+      </div>
+
+
+      <div class="admin-note">
+        NexCalc account access
+      </div>
+
+    </div>
+
+
+    <a
+      href="index.html"
+      class="back">
+      ← Back to NEXCALC
+    </a>
+
+  </div>
+
+
+  <!-- FIREBASE -->
+  <script type="module">
+
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      updateProfile
+    }
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    import { firebaseConfig }
+      from "./firebase-config.js";
+
+
+    /* =========================================
+       FIREBASE INITIALIZATION
+       ========================================= */
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+
+    /* =========================================
+       ADMIN EMAIL
+       ========================================= */
+
+    const ADMIN_EMAIL = "sgdurga18@gmail.com";
+
+
+    /* =========================================
+       ELEMENTS
+       ========================================= */
+
+    const loginTab =
+      document.getElementById("loginTab");
+
+    const registerTab =
+      document.getElementById("registerTab");
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const registerForm =
+      document.getElementById("registerForm");
+
+    const loginBtn =
+      document.getElementById("loginBtn");
+
+    const registerBtn =
+      document.getElementById("registerBtn");
+
+    const message =
+      document.getElementById("message");
+
+
+    /* =========================================
+       MESSAGE FUNCTION
+       ========================================= */
+
+    function showMessage(text, type = "") {
+
+      message.textContent = text;
+
+      message.className =
+        "message " + type;
+
+    }
+
+
+    /* =========================================
+       REDIRECT USER
+       ========================================= */
+
+    function redirectUser(user) {
+
+      if (!user) return;
+
+
+      const email =
+        (user.email || "").toLowerCase().trim();
+
+
+      if (email === ADMIN_EMAIL.toLowerCase()) {
+
+        window.location.href =
+          "admin-dashboard.html";
+
+      } else {
+
+        window.location.href =
+          "index.html";
+
+      }
+
+    }
+
+
+    /* =========================================
+       LOGIN TAB
+       ========================================= */
+
+    loginTab.addEventListener("click", () => {
+
+      loginTab.classList.add("active");
+
+      registerTab.classList.remove("active");
+
+      loginForm.style.display = "block";
+
+      registerForm.style.display = "none";
+
+      showMessage("");
+
+    });
+
+
+    /* =========================================
+       REGISTER TAB
+       ========================================= */
+
+    registerTab.addEventListener("click", () => {
+
+      registerTab.classList.add("active");
+
+      loginTab.classList.remove("active");
+
+      registerForm.style.display = "block";
+
+      loginForm.style.display = "none";
+
+      showMessage("");
+
+    });
+
+
+    /* =========================================
+       LOGIN
+       ========================================= */
+
+    loginForm.addEventListener("submit", async (event) => {
+
+      event.preventDefault();
+
+
+      const email =
+        document.getElementById("loginEmail")
+        .value
+        .trim();
+
+
+      const password =
+        document.getElementById("loginPassword")
+        .value;
+
+
+      loginBtn.disabled = true;
+
+      loginBtn.textContent = "Logging in...";
+
+      showMessage("");
+
+
+      try {
+
+        const result =
+          await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+
+        showMessage(
+          "Login successful!",
+          "success"
+        );
+
+
+        setTimeout(() => {
+
+          redirectUser(result.user);
+
+        }, 500);
+
+
+      } catch (error) {
+
+        console.error(error);
+
+
+        let msg =
+          "Login failed. Please try again.";
+
+
+        switch (error.code) {
+
+          case "auth/invalid-credential":
+            msg =
+              "Incorrect email or password.";
+            break;
+
+          case "auth/user-not-found":
+            msg =
+              "No account found with this email.";
+            break;
+
+          case "auth/wrong-password":
+            msg =
+              "Incorrect password.";
+            break;
+
+          case "auth/invalid-email":
+            msg =
+              "Please enter a valid email.";
+            break;
+
+          case "auth/too-many-requests":
+            msg =
+              "Too many attempts. Please try again later.";
+            break;
+
+        }
+
+
+        showMessage(msg, "error");
+
+
+        loginBtn.disabled = false;
+
+        loginBtn.textContent = "Login";
+
+      }
+
+    });
+
+
+    /* =========================================
+       REGISTER
+       ========================================= */
+
+    registerForm.addEventListener("submit", async (event) => {
+
+      event.preventDefault();
+
+
+      const name =
+        document.getElementById("registerName")
+        .value
+        .trim();
+
+
+      const email =
+        document.getElementById("registerEmail")
+        .value
+        .trim();
+
+
+      const password =
+        document.getElementById("registerPassword")
+        .value;
+
+
+      registerBtn.disabled = true;
+
+      registerBtn.textContent =
+        "Creating...";
+
+      showMessage("");
+
+
+      try {
+
+        const result =
+          await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+
+        /* Save user's display name */
+
+        await updateProfile(
+          result.user,
+          {
+            displayName: name
+          }
+        );
+
+
+        showMessage(
+          "Account created successfully!",
+          "success"
+        );
+
+
+        setTimeout(() => {
+
+          redirectUser(result.user);
+
+        }, 700);
+
+
+      } catch (error) {
+
+        console.error(error);
+
+
+        let msg =
+          "Registration failed. Please try again.";
+
+
+        switch (error.code) {
+
+          case "auth/email-already-in-use":
+            msg =
+              "This email is already registered.";
+            break;
+
+          case "auth/invalid-email":
+            msg =
+              "Please enter a valid email.";
+            break;
+
+          case "auth/weak-password":
+            msg =
+              "Password must be at least 6 characters.";
+            break;
+
+        }
+
+
+        showMessage(msg, "error");
+
+
+        registerBtn.disabled = false;
+
+        registerBtn.textContent =
+          "Create Account";
+
+      }
+
+    });
+
+
+    /* =========================================
+       AUTH STATE CHECK
+       ========================================= */
+
+    onAuthStateChanged(auth, (user) => {
+
+      if (user) {
+
+        redirectUser(user);
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
+```

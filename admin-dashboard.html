@@ -1,0 +1,742 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NEXCALC — Admin Dashboard</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #07070a;
+      color: #fff;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 68px;
+      background: #0d0d12;
+      border-bottom: 1px solid #24242c;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .admin-badge {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 4px 8px;
+      border-radius: 7px;
+      background: #7c5cff;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      vertical-align: middle;
+    }
+
+    .logout-btn {
+      border: 1px solid #34343d;
+      background: #17171e;
+      color: #fff;
+      padding: 9px 14px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .logout-btn:hover {
+      background: #22222b;
+    }
+
+    /* MAIN */
+
+    main {
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px 50px;
+    }
+
+    .welcome {
+      margin-bottom: 28px;
+    }
+
+    .welcome h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: #999;
+      font-size: 14px;
+    }
+
+    /* STATS */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: #111116;
+      border: 1px solid #25252d;
+      border-radius: 17px;
+      padding: 22px;
+    }
+
+    .stat-title {
+      color: #999;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    /* CARDS */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: #111116;
+      border: 1px solid #25252d;
+      border-radius: 17px;
+      padding: 22px;
+    }
+
+    .card h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #999;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .card-btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 14px;
+      border-radius: 9px;
+      background: #7c5cff;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .card-btn:hover {
+      opacity: .9;
+    }
+
+    /* ACCOUNT */
+
+    .account {
+      background: #111116;
+      border: 1px solid #25252d;
+      border-radius: 17px;
+      padding: 22px;
+      margin-bottom: 30px;
+    }
+
+    .account-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 13px 0;
+      border-bottom: 1px solid #22222a;
+      font-size: 14px;
+    }
+
+    .account-row:last-child {
+      border-bottom: none;
+    }
+
+    .account-label {
+      color: #888;
+    }
+
+    .account-value {
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .status {
+      color: #55d98b;
+      font-weight: 700;
+    }
+
+    /* LOADING */
+
+    #loading {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 14px;
+    }
+
+    #dashboard {
+      display: none;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    @media (max-width: 500px) {
+
+      header {
+        padding: 0 14px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      .admin-badge {
+        display: none;
+      }
+
+      main {
+        padding: 24px 14px 40px;
+      }
+
+      .welcome h1 {
+        font-size: 25px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 16px;
+      }
+
+      .stat-value {
+        font-size: 23px;
+      }
+
+      .account-row {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .account-value {
+        text-align: left;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Loading -->
+  <div id="loading">
+    Checking admin access...
+  </div>
+
+
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+
+    <header>
+
+      <div class="logo">
+        NEXCALC
+        <span class="admin-badge">ADMIN</span>
+      </div>
+
+      <button
+        class="logout-btn"
+        id="logoutBtn">
+        Logout
+      </button>
+
+    </header>
+
+
+    <main>
+
+      <!-- WELCOME -->
+
+      <div class="welcome">
+
+        <h1>
+          Welcome, Admin 👑
+        </h1>
+
+        <p>
+          Manage and monitor your NexCalc application.
+        </p>
+
+      </div>
+
+
+      <!-- STATS -->
+
+      <div class="stats">
+
+        <div class="stat-card">
+
+          <div class="stat-title">
+            Total Calculations
+          </div>
+
+          <div
+            class="stat-value"
+            id="calculationCount">
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-title">
+            History Items
+          </div>
+
+          <div
+            class="stat-value"
+            id="historyCount">
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-title">
+            Premium Status
+          </div>
+
+          <div
+            class="stat-value"
+            id="premiumStatus">
+            Free
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-title">
+            Account
+          </div>
+
+          <div
+            class="stat-value">
+            Admin
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- QUICK MANAGEMENT -->
+
+      <div class="section-title">
+        Quick Management
+      </div>
+
+
+      <div class="grid">
+
+        <div class="card">
+
+          <h3>
+            🧮 Calculator
+          </h3>
+
+          <p>
+            Open the main NexCalc calculator.
+          </p>
+
+          <a
+            href="index.html"
+            class="card-btn">
+            Open Calculator
+          </a>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>
+            🛠 Tools
+          </h3>
+
+          <p>
+            View all available NexCalc tools.
+          </p>
+
+          <a
+            href="tools.html"
+            class="card-btn">
+            Open Tools
+          </a>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>
+            📜 History
+          </h3>
+
+          <p>
+            View calculation history stored on this device.
+          </p>
+
+          <a
+            href="history.html"
+            class="card-btn">
+            Open History
+          </a>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>
+            ⭐ Premium
+          </h3>
+
+          <p>
+            Open the NexCalc Premium page.
+          </p>
+
+          <a
+            href="premium.html"
+            class="card-btn">
+            Open Premium
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- ADMIN ACCOUNT -->
+
+      <div class="section-title">
+        Admin Account
+      </div>
+
+
+      <div class="account">
+
+        <div class="account-row">
+
+          <div class="account-label">
+            Name
+          </div>
+
+          <div
+            class="account-value"
+            id="adminName">
+            -
+          </div>
+
+        </div>
+
+
+        <div class="account-row">
+
+          <div class="account-label">
+            Email
+          </div>
+
+          <div
+            class="account-value"
+            id="adminEmail">
+            -
+          </div>
+
+        </div>
+
+
+        <div class="account-row">
+
+          <div class="account-label">
+            Account ID
+          </div>
+
+          <div
+            class="account-value"
+            id="adminUid">
+            -
+          </div>
+
+        </div>
+
+
+        <div class="account-row">
+
+          <div class="account-label">
+            Access
+          </div>
+
+          <div
+            class="account-value status">
+            Admin Access
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- FIREBASE -->
+  <script type="module">
+
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    }
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    import { firebaseConfig }
+      from "./firebase-config.js";
+
+
+    /* =========================================
+       FIREBASE
+       ========================================= */
+
+    const app =
+      initializeApp(firebaseConfig);
+
+    const auth =
+      getAuth(app);
+
+
+    /* =========================================
+       ADMIN EMAIL
+       ========================================= */
+
+    const ADMIN_EMAIL =
+      "sgdurga18@gmail.com";
+
+
+    /* =========================================
+       ELEMENTS
+       ========================================= */
+
+    const loading =
+      document.getElementById("loading");
+
+    const dashboard =
+      document.getElementById("dashboard");
+
+    const logoutBtn =
+      document.getElementById("logoutBtn");
+
+
+    /* =========================================
+       ADMIN ACCESS CHECK
+       ========================================= */
+
+    onAuthStateChanged(auth, (user) => {
+
+      /* No login */
+
+      if (!user) {
+
+        window.location.href =
+          "login.html";
+
+        return;
+
+      }
+
+
+      const email =
+        (user.email || "")
+        .toLowerCase()
+        .trim();
+
+
+      /* Not admin */
+
+      if (
+        email !==
+        ADMIN_EMAIL.toLowerCase()
+      ) {
+
+        window.location.href =
+          "index.html";
+
+        return;
+
+      }
+
+
+      /* =====================================
+         ADMIN VERIFIED
+         ===================================== */
+
+      loading.style.display =
+        "none";
+
+      dashboard.style.display =
+        "block";
+
+
+      /* Account information */
+
+      document.getElementById(
+        "adminName"
+      ).textContent =
+        user.displayName ||
+        "Admin";
+
+
+      document.getElementById(
+        "adminEmail"
+      ).textContent =
+        user.email;
+
+
+      document.getElementById(
+        "adminUid"
+      ).textContent =
+        user.uid;
+
+
+      /* =====================================
+         LOCAL HISTORY COUNT
+         ===================================== */
+
+      try {
+
+        const history =
+          JSON.parse(
+            localStorage.getItem(
+              "nexcalcHistory"
+            ) || "[]"
+          );
+
+
+        document.getElementById(
+          "calculationCount"
+        ).textContent =
+          history.length;
+
+
+        document.getElementById(
+          "historyCount"
+        ).textContent =
+          history.length;
+
+      } catch (error) {
+
+        console.error(
+          "History error:",
+          error
+        );
+
+      }
+
+    });
+
+
+    /* =========================================
+       LOGOUT
+       ========================================= */
+
+    logoutBtn.addEventListener(
+      "click",
+      async () => {
+
+        try {
+
+          await signOut(auth);
+
+          window.location.href =
+            "login.html";
+
+        } catch (error) {
+
+          console.error(
+            "Logout error:",
+            error
+          );
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
+```
