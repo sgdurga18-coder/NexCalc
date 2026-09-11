@@ -8,11 +8,14 @@
     <meta name="description" content="NEXCALC - Smart all-in-one calculator">
 
     <title>NEXCALC — Smart Calculator</title>
+
     <title>NexCalc – Smart Calculator</title>
 
 <meta name="description" content="NexCalc is a smart online calculator with EMI, GST, percentage, finance and other useful calculators. Created by Soumyarup Goswami.">
 
 <meta name="author" content="Soumyarup Goswami">
+
+    <script type="module" src="analytics.js"></script>
 
     <style>
         * {
@@ -639,6 +642,30 @@
         }
     </style>
   <script type="module" src="analytics.js"></script>
+
+    <!-- ================= FIREBASE LOGIN GUARD ================= -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+        import { firebaseConfig } from "./firebase-config.js";
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const ADMIN_EMAIL = "sgdurga18@gmail.com";
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.replace("login.html");
+                return;
+            }
+
+            const email = (user.email || "").toLowerCase().trim();
+            if (email === ADMIN_EMAIL.toLowerCase()) {
+                window.location.replace("admin-dashboard.html");
+            }
+        });
+    </script>
+    <!-- ================= END FIREBASE LOGIN GUARD ================= -->
 </head>
 
 <body>
